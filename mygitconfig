@@ -1,0 +1,12 @@
+[user]
+   name = McCabe, Robert J
+   email = Robert.McCabe@rockwellcollins.com
+[sendemail]
+   smtpserver = notessmtp.rockwellcollins.com
+   smtpserverport = 25
+[diff]
+   tool = vimdiff
+[difftool]
+   prompt = false
+[merge]
+   tool = vimdiff
