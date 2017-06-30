@@ -1,5 +1,3 @@
-set -o vi
-
 alias vm=mv
 alias sl=ls
 
