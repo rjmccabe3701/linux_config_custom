@@ -4,6 +4,7 @@
 [sendemail]
    smtpserver = notessmtp.rockwellcollins.com
    smtpserverport = 25
+   suppresscc = self
 [diff]
    tool = vimdiff
 [difftool]
