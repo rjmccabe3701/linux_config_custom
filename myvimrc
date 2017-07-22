@@ -1,0 +1,3 @@
+
+"Replay last macro by typing enter
+nnoremap <Enter> @@
