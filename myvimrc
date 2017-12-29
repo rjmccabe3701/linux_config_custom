@@ -1,3 +1,8 @@
 
 "Replay last macro by typing enter
 nnoremap <Enter> @@
+if has('nvim')
+   "Using xclip for better clipboard integration:
+   "https://github.com/neovim/neovim/issues/6097
+    set clipboard+=unnamedplus
+endif
