@@ -14,3 +14,5 @@ if has('nvim')
 endif
 
 
+"https://superuser.com/questions/77800/vims-autocomplete-how-to-prevent-vim-to-read-some-include-files
+set include=^\\s*#\\s*include\ \\(<boost/\\)\\@!
