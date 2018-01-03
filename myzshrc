@@ -6,3 +6,5 @@ alias xsh='DISPLAY=:0.0 ssh -YC -c aes128-gcm@openssh.com'
 
 [ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) ||
     eval $(dircolors -b)
+
+command -v nvim >/dev/null 2>&1 && alias vim='nvim'
