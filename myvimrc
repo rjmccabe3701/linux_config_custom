@@ -18,3 +18,13 @@ imap <C-Y> <c-o>:py3f ~/scripts/clang-format.py<cr>
 
 "https://superuser.com/questions/77800/vims-autocomplete-how-to-prevent-vim-to-read-some-include-files
 set include=^\\s*#\\s*include\ \\(<boost/\\)\\@!
+
+"Higher contrast colorscheme
+" colorscheme darkblue
+" colorscheme murphy "too green
+colorscheme wombat
+
+"Remove hard-to-read highlights
+hi clear SpellBad
+" SpellBad cterm=underline  ctermfg=red
+hi SpellBad cterm=underline
