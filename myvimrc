@@ -22,9 +22,10 @@ set include=^\\s*#\\s*include\ \\(<boost/\\)\\@!
 "Higher contrast colorscheme
 " colorscheme darkblue
 " colorscheme murphy "too green
-colorscheme wombat
+" colorscheme wombat "sucks with python
+colorscheme inkpot
 
 "Remove hard-to-read highlights
-hi clear SpellBad
-" SpellBad cterm=underline  ctermfg=red
-hi SpellBad cterm=underline
+" hi clear SpellBad
+" " SpellBad cterm=underline  ctermfg=red
+" hi SpellBad cterm=underline
