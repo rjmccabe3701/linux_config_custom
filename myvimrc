@@ -25,6 +25,8 @@ set include=^\\s*#\\s*include\ \\(<boost/\\)\\@!
 " colorscheme wombat "sucks with python
 colorscheme inkpot
 
+"Limit the control-p scanned files (otherwise vim can hang)
+let g:ctrlp_max_files = 10000
 "Remove hard-to-read highlights
 " hi clear SpellBad
 " " SpellBad cterm=underline  ctermfg=red
