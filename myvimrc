@@ -27,6 +27,8 @@ colorscheme inkpot
 
 "Limit the control-p scanned files (otherwise vim can hang)
 let g:ctrlp_max_files = 10000
+" Set the MRU option as the default ctrl-p mode
+let g:ctrlp_cmd = 'CtrlPMRU'
 "Remove hard-to-read highlights
 " hi clear SpellBad
 " " SpellBad cterm=underline  ctermfg=red
