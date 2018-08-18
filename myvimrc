@@ -29,6 +29,11 @@ colorscheme inkpot
 let g:ctrlp_max_files = 10000
 " Set the MRU option as the default ctrl-p mode
 let g:ctrlp_cmd = 'CtrlPMRU'
+
+" Open files in the current pane
+let g:ctrlp_reuse_window = 'nerdtree'
+let g:ctrlp_switch_buffer = ''
+
 "Remove hard-to-read highlights
 " hi clear SpellBad
 " " SpellBad cterm=underline  ctermfg=red
