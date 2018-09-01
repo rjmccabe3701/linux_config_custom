@@ -5,6 +5,25 @@ if has('nvim')
    "Using xclip for better clipboard integration:
    "https://github.com/neovim/neovim/issues/6097
     set clipboard+=unnamedplus
+    let g:os = substitute(system('uname -a'), '\n', '', '')
+    if g:os =~ "Microsoft"
+       "WSL detected, we need to do some weirdness to interact
+       " with the system clipboard ...
+       "Figured this out by looking at this:
+       " https://github.com/neovim/neovim/blob/master/runtime/autoload/provider/clipboard.vim
+       let g:clipboard = {
+             \   'name': 'myClipboard',
+             \   'copy': {
+             \      '+': 'nvimCopy.sh',
+             \      '*': 'nvimCopy.sh',
+             \    },
+             \   'paste': {
+             \      '+': "nvimPaste.sh",
+             \      '-': "nvimPaste.sh",
+             \   },
+             \   'cache_enabled': 1,
+             \ }
+    endif
 
     "Use Escape to exit terminal "insert" mode
     tnoremap <Esc> <C-\><C-n>
