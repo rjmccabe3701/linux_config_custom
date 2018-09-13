@@ -2,7 +2,7 @@ alias vm=mv
 alias sl=ls
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/lib
-alias xsh='DISPLAY=:0.0 ssh -YC -c aes128-gcm@openssh.com'
+alias xsh='DISPLAY=localhost:0.0 ssh -YC -c aes128-gcm@openssh.com'
 
 [ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) ||
     eval $(dircolors -b)
