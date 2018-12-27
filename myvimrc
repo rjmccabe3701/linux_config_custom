@@ -58,3 +58,6 @@ let g:ctrlp_switch_buffer = ''
 " hi clear SpellBad
 " " SpellBad cterm=underline  ctermfg=red
 " hi SpellBad cterm=underline
+"
+
+set textwidth=110
