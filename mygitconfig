@@ -1,8 +1,9 @@
 [user]
    name = McCabe, Robert J
-   email = Robert.McCabe@rockwellcollins.com
+   email = robert.mccabe@rockwellcollins.com
 [sendemail]
-   smtpserver = notessmtp.rockwellcollins.com
+   from = robert.mccabe@rockwellcollins.com
+   smtpserver = smtpimr.rockwellcollins.com
    smtpserverport = 25
    suppresscc = self
 [diff]
