@@ -54,14 +54,21 @@ let g:ctrlp_cmd = 'CtrlPMRU'
 let g:ctrlp_reuse_window = 'nerdtree'
 let g:ctrlp_switch_buffer = ''
 
+" https://github.com/scrooloose/nerdtree/issues/250
+let NERDTreeCreatePrefix='silent keepalt keepjumps'
+
 "Remove hard-to-read highlights
 " hi clear SpellBad
 " " SpellBad cterm=underline  ctermfg=red
 " hi SpellBad cterm=underline
 
+"""""""""""""""""""""""""""""""""""""""""
 "YouCompleteMe shortcuts
 nnoremap <leader>jj :YcmCompleter GoTo<CR>
 nnoremap <leader>ji :YcmCompleter GoToInclude<CR>
+" GotoDefinition doesn't work if the definition is in a different
+" translation unit (which makes it pretty useless):
+" https://github.com/Valloric/YouCompleteMe/issues/2448
 nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>jt :YcmCompleter GetType<CR>
 nnoremap <leader>jp :YcmCompleter GetParent<CR>
@@ -69,5 +76,13 @@ nnoremap <leader>jD :YcmCompleter GetDoc<CR>
 nnoremap <leader>jF :YcmCompleter FixIt<CR>
 "Not available in C/C++ :(
 nnoremap <leader>jr :YcmCompleter GoToReferences<CR>
+
+"Showing diagnostic list in "location-list"
+" :YcmDiag
+"This doesn't work so well with boost :(
+"For now dont show errors that YCM finds
+let g:ycm_enable_diagnostic_signs = 0
+let g:ycm_show_diagnostics_ui = 0
+"""""""""""""""""""""""""""""""""""""""""
 
 set textwidth=110
