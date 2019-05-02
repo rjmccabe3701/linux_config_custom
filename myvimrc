@@ -58,6 +58,16 @@ let g:ctrlp_switch_buffer = ''
 " hi clear SpellBad
 " " SpellBad cterm=underline  ctermfg=red
 " hi SpellBad cterm=underline
-"
+
+"YouCompleteMe shortcuts
+nnoremap <leader>jj :YcmCompleter GoTo<CR>
+nnoremap <leader>ji :YcmCompleter GoToInclude<CR>
+nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>jt :YcmCompleter GetType<CR>
+nnoremap <leader>jp :YcmCompleter GetParent<CR>
+nnoremap <leader>jD :YcmCompleter GetDoc<CR>
+nnoremap <leader>jF :YcmCompleter FixIt<CR>
+"Not available in C/C++ :(
+nnoremap <leader>jr :YcmCompleter GoToReferences<CR>
 
 set textwidth=110
