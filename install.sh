@@ -15,4 +15,4 @@ fi
 
 sudo apt install build-essential cmake python3-dev
 cd ~/.vim/bundle/youcompleteme
-./install.py --clang-completer
+python3 ./install.py --clang-completer
