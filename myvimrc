@@ -26,14 +26,16 @@ if has('nvim')
     else
        if executable('xclip') == 1
           " This is faster than the default xsel for linux
+          " Loopks like this is the default in newer version of neovim:
+          " https://github.com/neovim/neovim/pull/9302
           let g:clipboard = {
              \   'name': 'fast_xclip',
              \   'copy': {
-             \      '+': 'xclip -quiet -i -selection clipboard',
+             \      '+': 'xclip -quiet -i -selection primary',
              \      '*': 'xclip -quiet -i -selection primary',
              \    },
              \   'paste': {
-             \      '+': 'xclip -o -selection clipboard',
+             \      '+': 'xclip -o -selection primary',
              \      '-': 'xclip -o -selection primary',
              \   },
              \   'cache_enabled': 1,
