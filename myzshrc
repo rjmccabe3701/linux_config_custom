@@ -30,3 +30,7 @@ stl() {
 	DISPLAY=localhost:0.0 ssh -Y $1 -t tmux list-sessions 2&>/dev/null
 }
 
+if command -v thefuck > /dev/null;
+then
+   eval $(thefuck --alias)
+fi

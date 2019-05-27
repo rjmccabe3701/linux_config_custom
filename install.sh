@@ -13,6 +13,10 @@ if [ ! -d ~/.vim/bundle/youcompleteme ]; then
    exit 1
 fi
 
+sudo apt-get update
 sudo apt install build-essential cmake python3-dev
 cd ~/.vim/bundle/youcompleteme
 python3 ./install.py --clang-completer
+
+sudo apt install python3-dev python3-pip python3-setuptools
+sudo pip3 install thefuck
