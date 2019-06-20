@@ -14,7 +14,8 @@ if [ ! -d ~/.vim/bundle/youcompleteme ]; then
 fi
 
 sudo apt-get update
-sudo apt install build-essential cmake python3-dev
+sudo apt install build-essential cmake python3-dev \
+   neovim python3-neovim
 cd ~/.vim/bundle/youcompleteme
 python3 ./install.py --clang-completer
 
