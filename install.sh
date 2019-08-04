@@ -1,7 +1,8 @@
 #!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-files=(mygitconfig myzshrc dircolors myvimrc_vundle_plugins myvimrc)
+files=(mygitconfig myzshrc dircolors myvimrc_vundle_plugins \
+       myvimrc mytmux.conf)
 
 for f in ${files[@]}
 do
