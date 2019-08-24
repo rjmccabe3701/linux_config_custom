@@ -4,8 +4,10 @@ alias sl=ls
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/lib
 alias xsh='DISPLAY=localhost:0.0 ssh -YC -c aes128-gcm@openssh.com'
 
-[ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) ||
-    eval $(dircolors -b)
+if whence dircolors > /dev/null; then
+   [ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || \
+      eval $(dircolors -b)
+fi
 
 command -v nvim >/dev/null 2>&1 && alias vim='nvim'
 
