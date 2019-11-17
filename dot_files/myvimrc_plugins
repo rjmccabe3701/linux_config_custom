@@ -1,0 +1,6 @@
+Plug 'tpope/vim-abolish'
+Plug 'wincent/loupe'
+Plug 'flazz/vim-colorschemes'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Plug 'valloric/youcompleteme'

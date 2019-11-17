@@ -1,5 +1,0 @@
-Plugin 'tpope/vim-abolish'
-Plugin 'wincent/loupe'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'machakann/vim-highlightedyank'
-Plugin 'valloric/youcompleteme'
