@@ -15,7 +15,7 @@ case "$(uname -s)" in
      ;;
 esac
 
-curl -sL install-node.now.sh | sh -s -- -y -P ~/user_install
+curl -sL install-node.now.sh | bash -s -- -y -P ~/user_install
 
 export PATH=~/scripts:~/user_install/bin:~/user_install/usr/bin:${PATH}
 export LD_LIBRARY_PATH=~/user_install/lib/:~/user_install/usr/lib:${LD_LIBRARY_PATH}
