@@ -104,4 +104,7 @@ let g:ycm_show_diagnostics_ui = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
 """""""""""""""""""""""""""""""""""""""""
 
+"Shortcut to "git grep" a word
+nmap <C-\>\ :Ggrep <C-R>=expand("<cword>")<CR><CR>
+
 set textwidth=110
