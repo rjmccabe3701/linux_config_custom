@@ -7,12 +7,19 @@ mkdir -p ~/user_install
 
 case "$(uname -s)" in
    Linux)
-      #TODO: this only works for debian-based systems
-      sudo apt-get update
-      sudo apt install build-essential cmake python3-dev \
-         neovim python3-neovim
-      sudo apt install python3-dev python3-pip python3-setuptools
-     ;;
+      if [ -f /etc/fedora-release ]
+      then
+         sudo dnf install -y cmake python3-devel \
+            neovim python3-neovim
+         sudo dnf install -y python3-pip python3-setuptools
+      else
+         #Assumes debian
+         sudo apt-get update
+         sudo apt install -y build-essential cmake python3-dev \
+            neovim python3-neovim
+         sudo apt install-y python3-dev python3-pip python3-setuptools
+      fi
+      ;;
 esac
 
 cd ~/.vim/plugged/youcompleteme
