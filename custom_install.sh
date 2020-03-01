@@ -17,10 +17,13 @@ case "$(uname -s)" in
          sudo apt-get update
          sudo apt install -y build-essential cmake python3-dev \
             neovim python3-neovim
-         sudo apt install-y python3-dev python3-pip python3-setuptools
+         sudo apt install -y python3-dev python3-pip python3-setuptools
+         sudo apt install -y clang-format
       fi
       ;;
 esac
+
+curl https://raw.githubusercontent.com/llvm-mirror/clang/master/tools/clang-format/clang-format.py > ~/.vim/clang-format.py
 
 cd ~/.vim/plugged/youcompleteme
 python3 ./install.py --clang-completer

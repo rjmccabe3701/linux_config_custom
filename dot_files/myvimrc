@@ -50,9 +50,11 @@ if has('nvim')
     tnoremap <M-[> <Esc>
 endif
 
-"clang-format.py is provided by the 'clang-format' package
-map <C-Y> :py3f /usr/share/vim/addons/syntax/clang-format.py<cr>
-imap <C-Y> <c-o>:py3f /usr/share/vim/addons/syntax/clang-format.py<cr>
+"The Mozilla style is a pretty sane fallback if .clang-format
+" DNE in the working dir
+let g:clang_format_fallback_style = 'Mozilla'
+map <C-Y> :py3f ~/.vim/clang-format.py<cr>
+imap <C-Y> <c-o>:py3f ~/.vim/clang-format.py<cr>
 
 "https://superuser.com/questions/77800/vims-autocomplete-how-to-prevent-vim-to-read-some-include-files
 set include=^\\s*#\\s*include\ \\(<boost/\\)\\@!
