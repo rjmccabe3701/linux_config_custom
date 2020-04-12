@@ -53,8 +53,11 @@ endif
 "The Mozilla style is a pretty sane fallback if .clang-format
 " DNE in the working dir
 let g:clang_format_fallback_style = 'Mozilla'
-map <C-Y> :py3f ~/.vim/clang-format.py<cr>
-imap <C-Y> <c-o>:py3f ~/.vim/clang-format.py<cr>
+vmap <C-Y> :py3f ~/.vim/clang-format.py<cr>
+
+"Universal reformatting (uses the vim-autoformat plugin), will
+" call into clang-format for C/C++, autopep8 for python, etc.
+vmap <C-U> :Autoformat<CR>
 
 "https://superuser.com/questions/77800/vims-autocomplete-how-to-prevent-vim-to-read-some-include-files
 set include=^\\s*#\\s*include\ \\(<boost/\\)\\@!
