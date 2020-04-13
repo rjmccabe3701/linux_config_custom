@@ -2,5 +2,5 @@ Plug 'tpope/vim-abolish'
 Plug 'wincent/loupe'
 Plug 'flazz/vim-colorschemes'
 Plug 'machakann/vim-highlightedyank'
-Plug 'valloric/youcompleteme'
+Plug 'valloric/youcompleteme', {'commit': '3a9a1da245ef09ba440e1832801064d1df9dad7b'}
 Plug 'Chiel92/vim-autoformat'
