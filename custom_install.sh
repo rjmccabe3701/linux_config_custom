@@ -28,5 +28,5 @@ curl https://raw.githubusercontent.com/llvm-mirror/clang/master/tools/clang-form
 cd ~/.vim/plugged/youcompleteme
 python3 ./install.py --clang-completer
 
-python3 -m pip install pynvim autopep8 --upgrade
+sudo python3 -m pip install pynvim autopep8 --upgrade
 
