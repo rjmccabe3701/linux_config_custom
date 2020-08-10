@@ -9,8 +9,14 @@ case "$(uname -s)" in
    Linux)
       if [ -f /etc/fedora-release ]
       then
-         sudo dnf install -y cmake python3-devel \
-            neovim python3-neovim
+         sudo dnf install -y \
+            cmake \
+            g++ \
+            make \
+            neovim \
+            python3-devel \
+            python3-neovim
+
          sudo dnf install -y python3-pip python3-setuptools
       else
          #Assumes debian
