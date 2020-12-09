@@ -1,6 +1,5 @@
 alias vm=mv
 alias sl=ls
-alias kk='kubectl'
 
 THIS_PATH=$0:A
 
