@@ -108,8 +108,19 @@ let g:ycm_enable_diagnostic_signs = 0
 let g:ycm_show_diagnostics_ui = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
 """""""""""""""""""""""""""""""""""""""""
+"Recursive git grep
+function! Ggrepr(myargs)
+   echo a:myargs
+   exe 'Ggrep --recurse-submodules' a:myargs
+   " exe 'echo a:myargs'
+endfunction
+" com -nargs=1 Ggrepr call Ggrepr(<args>)
+com -nargs=1 Ggrepr call Ggrepr(<f-args>)
+" command! Ggrepr call Ggrepr(<args>)
 
-"Shortcut to "git grep" a word
+"Shortcut to "git grep" and "git grep --recurse-submodules
 nmap <C-\>\ :Ggrep <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>r :Ggrepr <C-R>=expand("<cword>")<CR><CR>
+
 
 set textwidth=110
