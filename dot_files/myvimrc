@@ -31,12 +31,12 @@ if has('nvim')
           let g:clipboard = {
              \   'name': 'fast_xclip',
              \   'copy': {
-             \      '+': 'xclip -quiet -i -selection clipboard',
-             \      '*': 'xclip -quiet -i -selection clipboard',
+             \      '+': 'xclip -quiet -i -selection primary',
+             \      '*': 'xclip -quiet -i -selection primary',
              \    },
              \   'paste': {
-             \      '+': 'xclip -o -selection clipboard',
-             \      '-': 'xclip -o -selection clipboard',
+             \      '+': 'xclip -o -selection primary',
+             \      '-': 'xclip -o -selection primary',
              \   },
              \   'cache_enabled': 1,
              \ }
