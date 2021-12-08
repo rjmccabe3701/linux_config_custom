@@ -1,11 +1,6 @@
 [user]
    name = McCabe, Robert J
-   email = robert.mccabe@rockwellcollins.com
-[sendemail]
-   from = robert.mccabe@rockwellcollins.com
-   smtpserver = smtpimr.rockwellcollins.com
-   smtpserverport = 25
-   suppresscc = self
+   email = robert.mccabe@cubic.com
 [diff]
    tool = vimdiff
 [difftool]
