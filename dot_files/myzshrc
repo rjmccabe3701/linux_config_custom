@@ -4,7 +4,7 @@ alias sl=ls
 THIS_PATH=$0:A
 
 alias xsh='DISPLAY=localhost:0.0 ssh -YC -c aes128-gcm@openssh.com'
-export PATH=~/scripts:${THIS_PATH}/../scripts:${PATH}
+export PATH=~/scripts:${THIS_PATH}/../scripts:~/go/bin:${PATH}
 
 if whence dircolors > /dev/null; then
    [ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || \
@@ -43,3 +43,11 @@ sstl() {
 	DISPLAY=localhost:0.0 ssh -Y $1 -t ssh -Y $2 -t tmux list-sessions 2&>/dev/null
 }
 
+#Prevent Neovim nesting
+if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+  if [ -x "$(command -v nvr)" ]; then
+    alias nvim=nvr
+  else
+    alias nvim='echo "No nesting!"'
+  fi
+fi
