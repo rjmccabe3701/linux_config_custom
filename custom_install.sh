@@ -1,10 +1,13 @@
 #!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "CUSTOM INSTALL"
 
 rm -rf ~/user_install
 mkdir -p ~/user_install
 
-curl https://raw.githubusercontent.com/llvm-mirror/clang/master/tools/clang-format/clang-format.py > ~/.vim/clang-format.py
+ln -sf ${DIR}/clang-format.py ~/.vim/clang-format.py
+
+# curl https://raw.githubusercontent.com/llvm-mirror/clang/master/tools/clang-format/clang-format.py > ~/.vim/clang-format.py
 
 # case "$(uname -s)" in
 #    Linux)
