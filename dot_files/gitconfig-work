@@ -1,0 +1,5 @@
+[user]
+   name = McCabe, Robert J
+   email = rob.mccabe@optm.com
+[core]
+   sshCommand = ssh -i ~/.ssh/id_ed25519

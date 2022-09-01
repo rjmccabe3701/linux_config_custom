@@ -1,6 +1,7 @@
-[user]
-   name = McCabe, Robert J
-   email = robertjmccabe@gmail.com
+[includeIf "gitdir:~/repos/personal/"]
+  path = .gitconfig-personal
+[includeIf "gitdir:~/repos/work/"]
+  path = .gitconfig-work
 [diff]
    tool = nvimdiff
 [difftool]
@@ -9,10 +10,5 @@
    tool = nvimdiff
 [credential]
    helper = store --file ~/.git/credentials
-[filter "lfs"]
-   required = true
-   clean = git-lfs clean -- %f
-   smudge = git-lfs smudge -- %f
-   process = git-lfs filter-process
 [diff "zip"]
    textconv = unzip -c -a

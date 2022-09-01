@@ -1,7 +1,0 @@
-Plug 'tpope/vim-abolish'
-Plug 'wincent/loupe'
-Plug 'flazz/vim-colorschemes'
-Plug 'machakann/vim-highlightedyank'
-" Plug 'valloric/youcompleteme'
-Plug 'Chiel92/vim-autoformat'
-Plug 'stephpy/vim-yaml'
