@@ -12,6 +12,8 @@ if whence dircolors > /dev/null; then
 fi
 
 command -v nvim >/dev/null 2>&1 && alias vim='nvim'
+alias vi=vim
+export EDITOR=nvim
 
 #Nifty remote tmux tools
 ## ATTACH TMUX SESSION

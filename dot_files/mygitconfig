@@ -1,12 +1,12 @@
 [user]
    name = McCabe, Robert J
-   email = robert.mccabe@cubic.com
+   email = robertjmccabe@gmail.com
 [diff]
-   tool = vimdiff
+   tool = nvimdiff
 [difftool]
    prompt = false
 [merge]
-   tool = vimdiff
+   tool = nvimdiff
 [credential]
    helper = store --file ~/.git/credentials
 [filter "lfs"]
