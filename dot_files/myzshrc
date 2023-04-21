@@ -3,7 +3,9 @@ alias sl=ls
 
 THIS_PATH=$0:A
 alias xsh='DISPLAY=localhost:0.0 ssh -YC -c aes128-gcm@openssh.com'
-export PATH=~/scripts:${THIS_PATH}/../scripts:~/go/bin:~/.local/bin:${PATH}
+export PATH=~/scripts:~/user_install/bin:${THIS_PATH}/../scripts:~/go/bin:~/.local/bin:${PATH}
+export LD_LIBRARY_PATH=~/user_install/lib:${LD_LIBRARY_PATH}
+source $HOME/.cargo/env
 
 if whence dircolors > /dev/null; then
    [ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || \
