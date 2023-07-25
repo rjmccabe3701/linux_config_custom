@@ -9,4 +9,4 @@ keymap.set("n", "<C-j>", "<C-w>j", { desc = "focus pane down"})
 keymap.set("n", "<C-l>", "<C-w>l", { desc = "focus pane right"})
 keymap.set("n", "<C-k>", "<C-w>k", { desc = "focus pane up"})
 
-
+require('gitsigns').setup {}

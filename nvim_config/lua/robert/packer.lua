@@ -41,10 +41,12 @@ packer.startup{
   use 'wbthomason/packer.nvim'
 
   use {
-	  'nvim-telescope/telescope.nvim', tag = '0.1.1',
+	  'nvim-telescope/telescope.nvim', tag = '0.1.x',
 	  -- or                            , branch = '0.1.x',
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
+  -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
   use({
 	  'rose-pine/neovim',
@@ -60,6 +62,7 @@ packer.startup{
   use('theprimeagen/harpoon')
   use('mbbill/undotree')
   use('tpope/vim-fugitive')
+  use 'lewis6991/gitsigns.nvim'
   use {
 	  'VonHeikemen/lsp-zero.nvim',
 	  branch = 'v2.x',

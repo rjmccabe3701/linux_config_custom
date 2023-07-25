@@ -24,21 +24,21 @@ lsp.setup_nvim_cmp({
 })
 
 lsp.on_attach(function(client, bufnr)
-  -- lsp.default_keymaps({buffer = bufnr})
-  local opts = {buffer = bufnr, remap = false }
-  local keymap = vim.keymap
-  local lsp = vim.lsp
-
-  keymap.set("n", "gd", function() lsp.buf.definition() end, opts)
-  keymap.set("n", "K", function() lsp.buf.hover() end, opts)
-  keymap.set("n", "<leader>vws", function() lsp.buf.workspace_symbol() end, opts)
-  keymap.set("n", "<leader>vd", function() lsp.diagnostic.open_float() end, opts)
-  keymap.set("n", "[d", function() lsp.diagnostic.goto_next() end, opts)
-  keymap.set("n", "]d", function() lsp.diagnostic.goto_prev() end, opts)
-  keymap.set("n", "<leader>vca", function() lsp.buf.code_action() end, opts)
-  keymap.set("n", "<leader>vrr", function() lsp.buf.references() end, opts)
-  keymap.set("n", "<leader>vrn", function() lsp.buf.rename() end, opts)
-  keymap.set("i", "<C-h>", function() lsp.buf.signature_help() end, opts)
+  lsp.default_keymaps({buffer = bufnr})
+  -- local opts = {buffer = bufnr, remap = false }
+  -- local keymap = vim.keymap
+  -- local lsp = vim.lsp
+  --
+  -- keymap.set("n", "gd", function() lsp.buf.definition() end, opts)
+  -- keymap.set("n", "K", function() lsp.buf.hover() end, opts)
+  -- keymap.set("n", "<leader>vws", function() lsp.buf.workspace_symbol() end, opts)
+  -- keymap.set("n", "<leader>vd", function() lsp.diagnostic.open_float() end, opts)
+  -- keymap.set("n", "[d", function() lsp.diagnostic.goto_next() end, opts)
+  -- keymap.set("n", "]d", function() lsp.diagnostic.goto_prev() end, opts)
+  -- keymap.set("n", "<leader>vca", function() lsp.buf.code_action() end, opts)
+  -- keymap.set("n", "<leader>vrr", function() lsp.buf.references() end, opts)
+  -- keymap.set("n", "<leader>vrn", function() lsp.buf.rename() end, opts)
+  -- keymap.set("i", "<C-h>", function() lsp.buf.signature_help() end, opts)
 end)
 
 
