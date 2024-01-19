@@ -12,3 +12,6 @@
    helper = store --file ~/.git/credentials
 [diff "zip"]
    textconv = unzip -c -a
+[user]
+   name = McCabe, Robert J
+   email = robert.mccabe@rockwellcollins.com
