@@ -57,3 +57,5 @@ if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
     alias nvim='echo "No nesting!"'
   fi
 fi
+export PATH=$PATH:/usr/local/go/bin
+export PATH="$PATH:$(go env GOPATH)/bin"
