@@ -1,12 +1,7 @@
 # Neovim configuration
 
-https://github.com/jdhao/nvim-config/blob/master/docs/README.md
+A good set of tutorials on how to customize neovim for yourself can be
+seen on [chris@machine youtube channel](https://youtu.be/ctH-a-1eUME?si=SF3q6Oj7-kwK9nzT).
 
+The neovim setup he builds up in those videos can be [found on github](https://github.com/LunarVim/Neovim-from-scratch).
 
-Looks like cscope support has been removed in the latest neovim. This is how you setup browsing for the linux kernel:
-https://www.reddit.com/r/emacs/comments/y7lwo3/help_a_linux_kernel_dev_setup_lsp/
-
-```sh
-make CC=clang defconfig
-scripts/clang-tools/gen_compile_commands.py
-```
