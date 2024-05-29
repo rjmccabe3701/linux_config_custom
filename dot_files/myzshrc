@@ -59,3 +59,4 @@ if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
 fi
 export PATH=$PATH:/usr/local/go/bin
 export PATH="$PATH:$(go env GOPATH)/bin"
+export PATH="/home/ubuntu/.local/bin:$PATH"

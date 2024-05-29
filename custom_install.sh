@@ -7,5 +7,5 @@ mkdir -p ~/user_install
 
 mkdir -p ~/.config
 
-ln -sf ${DIR}/nvim_config ~/.config/nvim
+git clone https://github.com/LazyVim/starter ~/.config/nvim
 
