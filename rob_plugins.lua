@@ -6,4 +6,8 @@ return {
 			inlay_hints = { enabled = false },
 		},
 	},
+	{
+		"echasnovski/mini.pairs",
+		enabled = false,
+	},
 }

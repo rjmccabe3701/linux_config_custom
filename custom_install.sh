@@ -8,7 +8,9 @@ mkdir -p ~/.git
 
 git clone https://github.com/LazyVim/starter ~/.config/nvim
 
-ln -sf ${DIR}/rob.lua ~/.config/nvim/lua/plugins/rob.lua
+ln -sf ${DIR}/rob_plugins.lua ~/.config/nvim/lua/plugins/rob_plugins.lua
+rm -f ~/.config/nvim/lua/config/options.lua
+ln -sf ${DIR}/rob_options.lua ~/.config/nvim/lua/config/options.lua
 
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
 curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
