@@ -38,5 +38,7 @@ return {
 				desc = "Grep String Under Cursor",
 			},
 		},
+		{ "ellisonleao/gruvbox.nvim" },
+		{ "LazyVim/LazyVim", opts = { colorscheme = "gruvbox" } },
 	},
 }
