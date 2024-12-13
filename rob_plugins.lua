@@ -42,7 +42,7 @@ return {
 	{ "ellisonleao/gruvbox.nvim" },
 	{ "LazyVim/LazyVim", opts = { colorscheme = "gruvbox" } },
 	{
-		-- https://www.lazyvim.org/plugins/lsp#%EF%B8%8F-customizing-lsp-keymaps
+		-- https://www.lazyvim.org/plugins/lsp#%EF%B8%8F-austomizing-lsp-keymaps
 		-- This doesn't work correctly. I wanted to fix the goto Defition
 		-- so that it doesn't jump to a new tab if the file containing the def
 		-- is open there. Revisit!
@@ -57,5 +57,50 @@ return {
 			-- 	desc = "Rob Goto Defition",
 			-- }
 		end,
+	},
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^5", -- Recommended
+		lazy = false, -- This plugin is already lazy
+	},
+	{
+		"nvim-treesitter/nvim-treesitter",
+		opts = {
+			ensure_installed = {
+				"rust",
+				"ron",
+			},
+		},
+	},
+	{
+		"Saecki/crates.nvim",
+		tag = "stable",
+		config = function()
+			require("crates").setup()
+		end,
+		-- opts = {
+		-- 	crates = {
+		-- 		enabled = true,
+		-- 	},
+		-- 	lsp = {
+		-- 		enabled = true,
+		-- 		actions = true,
+		-- 		completion = true,
+		-- 		hover = true,
+		-- 	},
+		-- },
+	},
+	{
+		"williamboman/mason.nvim",
+		opts = {
+			ensure_installed = {
+				"stylua",
+				"shellcheck",
+				"shfmt",
+				"flake8",
+				"codelldb",
+				"bacon",
+			},
+		},
 	},
 }
