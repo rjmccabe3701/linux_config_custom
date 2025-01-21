@@ -100,7 +100,20 @@ return {
 				"flake8",
 				"codelldb",
 				"bacon",
+				"clangd",
+				"clang-format",
 			},
 		},
+	},
+	{
+		"echasnovski/mini.pairs",
+		enabled = false,
+	},
+	{
+		--Disable the popup gui for running ex commands.
+		--I've noticed that, sometimes, the editor fails to close
+		-- with noice enabled
+		"folke/noice.nvim",
+		enabled = false,
 	},
 }
