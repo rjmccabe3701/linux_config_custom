@@ -1,9 +1,39 @@
 return {
 	{
-		-- https://github.com/LazyVim/LazyVim/discussions/3191
 		"neovim/nvim-lspconfig",
 		opts = {
 			inlay_hints = { enabled = false },
+			servers = {
+				-- pyright will be automatically installed with mason and loaded with lspconfig
+				pyright = {
+					settings = {
+						python = {
+							analysis = {
+								typeCheckingMode = "off",
+							},
+						},
+					},
+				},
+				-- pythnon-lsp-server will be automatically installed with mason and loaded with lspconfig
+				pylsp = {
+					settings = {
+						pylsp = {
+							plugins = {
+								pycodestyle = { enabled = true },
+								pyflakes = { enabled = true },
+								flake8 = { enabled = false }, -- If you have ruff, these might be redundant
+								mypy = { enabled = false }, -- This is the key to disabling mypy
+								jedi = { enabled = false }, -- You might want to disable Jedi if it's enabled
+								autopep8 = { enabled = true },
+								yapf = { enabled = false }, -- Example
+								black = { enabled = false }, -- If you use ruff for formatting
+							},
+						},
+					},
+				},
+				gopls = {}, -- Basic setup for gopls
+				clangd = {}, -- Basic setup for clangd
+			},
 		},
 	},
 	{
@@ -97,9 +127,7 @@ return {
 				"stylua",
 				"shellcheck",
 				"shfmt",
-				"flake8",
 				"codelldb",
-				"bacon",
 				"clangd",
 				"clang-format",
 			},
