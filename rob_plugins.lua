@@ -4,7 +4,18 @@ return {
 		opts = {
 			inlay_hints = { enabled = false },
 			servers = {
-				pylsp = {},
+				pylsp = {
+					settings = {
+						pylsp = {
+							configurationSources = { "pyflakes" },
+							plugins = {
+								black = { enabled = true },
+								autopep8 = { enabled = false },
+								yapf = { enabled = false },
+							},
+						},
+					},
+				},
 				gopls = {}, -- Basic setup for gopls
 				clangd = {}, -- Basic setup for clangd
 			},
