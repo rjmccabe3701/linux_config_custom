@@ -9,9 +9,9 @@ return {
 						pylsp = {
 							configurationSources = { "pyflakes" },
 							plugins = {
-								black = { enabled = true },
+								black = { enabled = false },
 								autopep8 = { enabled = false },
-								yapf = { enabled = false },
+								yapf = { enabled = true },
 							},
 						},
 					},
