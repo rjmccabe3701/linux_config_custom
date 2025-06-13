@@ -1,23 +1,48 @@
 return {
 	{
+		"cappyzawa/trim.nvim",
+		opts = {},
+	},
+	{
 		"neovim/nvim-lspconfig",
 		opts = {
 			inlay_hints = { enabled = false },
 			servers = {
-				pylsp = {
+				-- pylsp = {
+				-- 	settings = {
+				-- 		pylsp = {
+				-- 			configurationSources = { "pyflakes" },
+				-- 			plugins = {
+				-- 				black = { enabled = false },
+				-- 				autopep8 = { enabled = false },
+				-- 				yapf = { enabled = true },
+				-- 			},
+				-- 		},
+				-- 	},
+				-- },
+				gopls = {}, -- Basic setup for gopls
+				clangd = {
+					cmd = {
+						"clangd",
+						"--background-index",
+						"--clang-tidy",
+						"--completion-style=detailed",
+						"--log=error",
+					},
+					filetypes = { "c", "cpp", "objc", "objcpp" }, -- Ensure `.proto` is not included
+					root_dir = require("lspconfig.util").root_pattern(
+						"compile_commands.json",
+						"compile_flags.txt",
+						".git"
+					),
+					-- capabilities = require("cmp_nvim_lsp").default_capabilities(),
 					settings = {
-						pylsp = {
-							configurationSources = { "pyflakes" },
-							plugins = {
-								black = { enabled = false },
-								autopep8 = { enabled = false },
-								yapf = { enabled = true },
-							},
+						clangd = {
+							fallbackFlags = { "-std=c++20" }, -- Adjust based on your C++ version
+							excludeFiles = { "*.proto" }, -- Helps prevent clangd errors with proto files
 						},
 					},
 				},
-				gopls = {}, -- Basic setup for gopls
-				clangd = {}, -- Basic setup for clangd
 			},
 		},
 	},
