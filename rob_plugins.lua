@@ -68,6 +68,7 @@ return {
 						},
 					},
 				},
+				rust_analyzer = {},
 			},
 		},
 	},
@@ -106,27 +107,31 @@ return {
 	},
 	{ "ellisonleao/gruvbox.nvim" },
 	{ "LazyVim/LazyVim", opts = { colorscheme = "gruvbox" } },
-	-- {
-	-- 	-- https://www.lazyvim.org/plugins/lsp#%EF%B8%8F-austomizing-lsp-keymaps
-	-- 	-- This doesn't work correctly. I wanted to fix the goto Defition
-	-- 	-- so that it doesn't jump to a new tab if the file containing the def
-	-- 	-- is open there. Revisit!
-	-- 	"neovim/nvim-lspconfig",
-	-- 	opts = function()
-	-- 		-- local keys = require("lazyvim.plugins.lsp.keymaps").get()
-	-- 		-- keys[#keys + 1] = {
-	-- 		-- 	"gd",
-	-- 		-- 	function()
-	-- 		-- 		return vim.lsp.buf.definition({ reuse_win = false })
-	-- 		-- 	end,
-	-- 		-- 	desc = "Rob Goto Defition",
-	-- 		-- }
-	-- 	end,
-	-- },
 	{
 		"mrcjkb/rustaceanvim",
-		version = "^5", -- Recommended
-		lazy = false, -- This plugin is already lazy
+		ft = { "rust" },
+		opts = {
+			server = {
+				on_attach = function(_, bufnr)
+					vim.keymap.set("n", "<leader>cR", function()
+						vim.cmd.RustLsp("codeAction")
+					end, { desc = "Code Action", buffer = bufnr })
+					vim.keymap.set("n", "<leader>dr", function()
+						vim.cmd.RustLsp("debuggables")
+					end, { desc = "Rust Debuggables", buffer = bufnr })
+				end,
+				default_settings = {
+					["rust-analyzer"] = {
+						cargo = {
+							allFeatures = true,
+							loadOutDirsFromCheck = true,
+							buildScripts = { enable = true },
+						},
+						procMacro = { enable = true },
+					},
+				},
+			},
+		},
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -139,21 +144,16 @@ return {
 	},
 	{
 		"Saecki/crates.nvim",
-		tag = "stable",
-		config = function()
-			require("crates").setup()
-		end,
-		-- opts = {
-		-- 	crates = {
-		-- 		enabled = true,
-		-- 	},
-		-- 	lsp = {
-		-- 		enabled = true,
-		-- 		actions = true,
-		-- 		completion = true,
-		-- 		hover = true,
-		-- 	},
-		-- },
+		event = { "BufRead Cargo.toml" },
+		opts = {
+			completion = { crates = { enabled = true } },
+			lsp = {
+				enabled = true,
+				actions = true,
+				completion = true,
+				hover = true,
+			},
+		},
 	},
 	{
 		"williamboman/mason.nvim",
