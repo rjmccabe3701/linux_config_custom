@@ -8,18 +8,43 @@ return {
 		opts = {
 			inlay_hints = { enabled = false },
 			servers = {
-				-- pylsp = {
-				-- 	settings = {
-				-- 		pylsp = {
-				-- 			configurationSources = { "pyflakes" },
-				-- 			plugins = {
-				-- 				black = { enabled = false },
-				-- 				autopep8 = { enabled = false },
-				-- 				yapf = { enabled = true },
-				-- 			},
-				-- 		},
-				-- 	},
-				-- },
+				pylsp = {
+					settings = {
+						pylsp = {
+							configurationSources = { "ruff" },
+							plugins = {
+								black = { enabled = false },
+								autopep8 = { enabled = true },
+								yapf = { enabled = true },
+								flake8 = {
+									enabled = true,
+									ignore = { "E302", "E402", "F401", "F403", "F405" },
+								},
+								pyflakes = { enabled = false },
+								ruff = { enabled = false },
+								pycodestyle = {
+									enabled = true,
+									ignore = { "E302", "E402" },
+								},
+							},
+							-- configurationSources = { "flake8" },
+							-- plugins = {
+							-- 	black = { enabled = false },
+							-- 	autopep8 = { enabled = true },
+							-- 	yapf = { enabled = true },
+							-- 	flake8 = {
+							-- 		enabled = true,
+							-- 		ignore = { "E302", "E402", "F401", "F403", "F405" },
+							-- 	},
+							-- 	pyflakes = { enabled = false },
+							-- 	pycodestyle = {
+							-- 		enabled = true,
+							-- 		ignore = { "E302", "E402" },
+							-- 	},
+							-- },
+						},
+					},
+				},
 				gopls = {}, -- Basic setup for gopls
 				clangd = {
 					cmd = {

@@ -57,6 +57,12 @@ if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
     alias nvim='echo "No nesting!"'
   fi
 fi
-export PATH=$PATH:/usr/local/go/bin
+export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$(go env GOPATH)/bin"
-export PATH="/home/ubuntu/.local/bin:$PATH"
+export PATH="$PATH:$HOME/.cargo/bin"
+#export PATH="/home/ubuntu/.local/bin:$PATH"
+export http_proxy=http://proxy.rockwellcollins.com:9090
+export https_proxy=${http_proxy}
+
+#export http_proxy="http://127.0.0.1:9000"
+#export https_proxy="http://127.0.0.1:9000"
