@@ -4,6 +4,16 @@ return {
 		opts = {},
 	},
 	{
+		"folke/snacks.nvim",
+		opts = {
+			picker = {
+				exclude = {}, -- remove all exclusions
+				hidden = false, -- show dotfiles
+				ignored = true, -- show .gitignored files
+			},
+		},
+	},
+	{
 		"neovim/nvim-lspconfig",
 		opts = {
 			inlay_hints = { enabled = false },
