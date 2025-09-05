@@ -63,6 +63,7 @@ return {
 						"--clang-tidy",
 						"--completion-style=detailed",
 						"--log=error",
+						"--header-insertion=never",
 					},
 					filetypes = { "c", "cpp", "objc", "objcpp" }, -- Ensure `.proto` is not included
 					root_dir = require("lspconfig.util").root_pattern(
