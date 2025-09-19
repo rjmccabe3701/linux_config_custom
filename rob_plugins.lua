@@ -157,30 +157,57 @@ return {
 				"codelldb",
 				"clangd",
 				"clang-format",
+				"prettier",
 			},
 		},
 	},
 	{
 		"folke/noice.nvim",
-		enabled = false,
+		event = "VeryLazy",
+		opts = {}, -- You can customize views, messages, etc. here
+		dependencies = {
+			"MunifTanjim/nui.nvim", -- Required for UI rendering
+			"rcarriga/nvim-notify", -- Optional: for notification popups
+		},
 	},
 	{
 		"stevearc/conform.nvim",
-		opts = {
-			formatters_by_ft = {
-				cpp = { "clang_format" },
-				c = { "clang_format" },
-			},
-			format_on_save = {
-				timeout_ms = 500,
-				lsp_fallback = true,
-			},
-			formatters = {
-				clang_format = {
-					command = vim.fn.stdpath("data") .. "/mason/bin/clang-format",
-					args = { "--style=file" },
+		opts = function()
+			return {
+				formatters_by_ft = {
+					lua = { "stylua" },
+					cpp = { "clang_format" },
+					c = { "clang_format" },
+					-- markdown = { "prettierd", "prettier" },
+					markdown = { "prettier" },
 				},
-			},
-		},
+				-- format_on_save = { timeout_ms = 500, lsp_fallback = true },
+				formatters = {
+					clang_format = {
+						command = vim.fn.stdpath("data") .. "/mason/bin/clang-format",
+						args = { "--style=file" },
+					},
+					prettier = {
+						command = "prettier",
+						args = {
+							"--stdin-filepath",
+							"$FILENAME",
+							"--prose-wrap",
+							"always",
+							"--print-width",
+							"80",
+							"--tab-width",
+							"2",
+							"--use-tabs",
+							"false",
+						},
+					},
+					-- prettierd = {
+					-- 	command = "prettierd",
+					-- 	args = { "$FILENAME" },
+					-- },
+				},
+			}
+		end,
 	},
 }
