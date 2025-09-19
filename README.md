@@ -30,3 +30,15 @@ ssh-keygen -t ed25519 -C "rob.mccabe@optm.com"
 ```
 
 Then add to Github (``Settings/SSH and GPG keys``)
+
+## Installing Neovim
+
+See this: https://github.com/neovim/neovim/blob/master/INSTALL.md#install-from-package
+
+Specifically, the "AppImage" install seems to work well:
+
+```bash
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
+sudo mv nvim-linux-x86_64.appimage /usr/local/bin/nvim
+sudo chmod +x /usr/local/bin/nvim
+```

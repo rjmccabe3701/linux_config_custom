@@ -1,15 +1,12 @@
 return {
-	{
-		"cappyzawa/trim.nvim",
-		opts = {},
-	},
+	{ "cappyzawa/trim.nvim", opts = {} },
 	{
 		"folke/snacks.nvim",
 		opts = {
 			picker = {
-				exclude = {}, -- remove all exclusions
-				hidden = false, -- show dotfiles
-				ignored = true, -- show .gitignored files
+				exclude = {},
+				hidden = false,
+				ignored = true,
 			},
 		},
 	},
@@ -37,25 +34,10 @@ return {
 									ignore = { "E302", "E402" },
 								},
 							},
-							-- configurationSources = { "flake8" },
-							-- plugins = {
-							-- 	black = { enabled = false },
-							-- 	autopep8 = { enabled = true },
-							-- 	yapf = { enabled = true },
-							-- 	flake8 = {
-							-- 		enabled = true,
-							-- 		ignore = { "E302", "E402", "F401", "F403", "F405" },
-							-- 	},
-							-- 	pyflakes = { enabled = false },
-							-- 	pycodestyle = {
-							-- 		enabled = true,
-							-- 		ignore = { "E302", "E402" },
-							-- 	},
-							-- },
 						},
 					},
 				},
-				gopls = {}, -- Basic setup for gopls
+				gopls = {},
 				clangd = {
 					cmd = {
 						"clangd",
@@ -65,17 +47,20 @@ return {
 						"--log=error",
 						"--header-insertion=never",
 					},
-					filetypes = { "c", "cpp", "objc", "objcpp" }, -- Ensure `.proto` is not included
-					root_dir = require("lspconfig.util").root_pattern(
+					filetypes = { "c", "cpp", "objc", "objcpp" },
+					root_markers = {
+						".clangd",
+						".clang-tidy",
+						".clang-format",
 						"compile_commands.json",
 						"compile_flags.txt",
-						".git"
-					),
-					-- capabilities = require("cmp_nvim_lsp").default_capabilities(),
+						"configure.ac", -- AutoTools
+						".git",
+					},
 					settings = {
 						clangd = {
-							fallbackFlags = { "-std=c++20" }, -- Adjust based on your C++ version
-							excludeFiles = { "*.proto" }, -- Helps prevent clangd errors with proto files
+							fallbackFlags = { "-std=c++20" },
+							excludeFiles = { "*.proto" },
 						},
 					},
 				},
@@ -84,13 +69,12 @@ return {
 		},
 	},
 	{
-		"echasnovski/mini.pairs",
+		"nvim-mini/mini.pairs",
 		enabled = false,
 	},
 	{
 		"folke/flash.nvim",
 		keys = {
-			-- disable the default flash keymap
 			{ "s", mode = { "n", "x", "o" }, false },
 			{ "S", mode = { "n", "x", "o" }, false },
 			{
@@ -147,10 +131,7 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		opts = {
-			ensure_installed = {
-				"rust",
-				"ron",
-			},
+			ensure_installed = { "rust", "ron" },
 		},
 	},
 	{
@@ -167,7 +148,7 @@ return {
 		},
 	},
 	{
-		"williamboman/mason.nvim",
+		"mason-org/mason.nvim",
 		opts = {
 			ensure_installed = {
 				"stylua",
@@ -180,14 +161,26 @@ return {
 		},
 	},
 	{
-		"echasnovski/mini.pairs",
+		"folke/noice.nvim",
 		enabled = false,
 	},
 	{
-		--Disable the popup gui for running ex commands.
-		--I've noticed that, sometimes, the editor fails to close
-		-- with noice enabled
-		"folke/noice.nvim",
-		enabled = false,
+		"stevearc/conform.nvim",
+		opts = {
+			formatters_by_ft = {
+				cpp = { "clang_format" },
+				c = { "clang_format" },
+			},
+			format_on_save = {
+				timeout_ms = 500,
+				lsp_fallback = true,
+			},
+			formatters = {
+				clang_format = {
+					command = vim.fn.stdpath("data") .. "/mason/bin/clang-format",
+					args = { "--style=file" },
+				},
+			},
+		},
 	},
 }

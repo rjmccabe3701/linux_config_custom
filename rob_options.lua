@@ -45,3 +45,42 @@ vim.opt.relativenumber = false
 -- provided by rust-analyzer.
 vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
 vim.g.lazyvim_picker = "telescope"
+
+-----------------------------------
+-- Command for formating files to 80 characters
+-- To use:
+--  1. Select the comment block in visual mode (V then move down).
+--  2. Press gq to reformat.
+
+-- For formatting C++ comments:
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	pattern = "cpp",
+-- 	callback = function()
+-- 		vim.opt_local.textwidth = 80
+-- 		vim.opt_local.formatoptions:append("tcq")
+-- 		vim.opt_local.formatoptions:remove("l") -- disables long-line preservation
+-- 	end,
+-- })
+--
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+-- 	pattern = "*.md",
+-- 	callback = function()
+-- 		vim.cmd("silent normal! gggqG")
+-- 	end,
+-- })
+-- For formatting markdown files:
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	pattern = "markdown",
+-- 	callback = function()
+-- 		vim.opt_local.textwidth = 80
+-- 		vim.opt_local.formatoptions:append("tcqn")
+-- 		vim.opt_local.formatoptions:remove("l") -- disables long-line preservation
+-- 	end,
+-- })
+-- What the options do:
+--t: auto-wrap text using textwidth
+--c: wrap comments
+--q: allow formatting with gq
+--l: removed so short lines get joined
+--n: Formats numbered lists (like 1., 2., etc.) correctly. This is a crucial addition for Markdown.
+-----------------------------------
