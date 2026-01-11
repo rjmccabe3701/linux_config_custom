@@ -1,18 +1,15 @@
 alias vm=mv
 alias sl=ls
 
-THIS_PATH=$0:A
 alias xsh='DISPLAY=localhost:0.0 ssh -YC -c aes128-gcm@openssh.com'
-#export PATH=~/scripts:~/user_install/bin:${THIS_PATH}/../scripts:~/go/bin:~/.local/bin:${PATH}
-#export LD_LIBRARY_PATH=~/user_install/lib:${LD_LIBRARY_PATH}
-if [ -d $HOME/.cargo/env ]
-then
-    source $HOME/.cargo/env
+alias k=kubectl
+if [ -f $HOME/.cargo/env ]; then
+	source $HOME/.cargo/env
 fi
 
-if whence dircolors > /dev/null; then
-   [ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || \
-      eval $(dircolors -b)
+if whence dircolors >/dev/null; then
+	[ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) ||
+		eval $(dircolors -b)
 fi
 
 command -v nvim >/dev/null 2>&1 && alias vim='nvim'
@@ -43,20 +40,18 @@ ssts() {
 
 ## LIST_TMUX SESSIONS
 stl() {
-	DISPLAY=localhost:0.0 ssh -Y $1 -t tmux list-sessions 2&>/dev/null
+	DISPLAY=localhost:0.0 ssh -Y $1 -t tmux list-sessions 2 &>/dev/null
 }
 sstl() {
-	DISPLAY=localhost:0.0 ssh -Y $1 -t ssh -Y $2 -t tmux list-sessions 2&>/dev/null
+	DISPLAY=localhost:0.0 ssh -Y $1 -t ssh -Y $2 -t tmux list-sessions 2 &>/dev/null
 }
 
 #Prevent Neovim nesting
 if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-  if [ -x "$(command -v nvr)" ]; then
-    alias nvim=nvr
-  else
-    alias nvim='echo "No nesting!"'
-  fi
+	if [ -x "$(command -v nvr)" ]; then
+		alias nvim=nvr
+	else
+		alias nvim='echo "No nesting!"'
+	fi
 fi
-export PATH=$PATH:/usr/local/go/bin
 export PATH="$PATH:$(go env GOPATH)/bin"
-export PATH="/home/ubuntu/.local/bin:$PATH"

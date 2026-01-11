@@ -4,20 +4,9 @@ return {
 		opts = {
 			inlay_hints = { enabled = false },
 			servers = {
-				pylsp = {
-					settings = {
-						pylsp = {
-							configurationSources = { "pyflakes" },
-							plugins = {
-								black = { enabled = false },
-								autopep8 = { enabled = false },
-								yapf = { enabled = true },
-							},
-						},
-					},
-				},
-				gopls = {}, -- Basic setup for gopls
-				clangd = {}, -- Basic setup for clangd
+				pylsp = {},
+				gopls = {},
+				clangd = {},
 			},
 		},
 	},
@@ -54,29 +43,32 @@ return {
 			},
 		},
 	},
-	{ "ellisonleao/gruvbox.nvim" },
+	{ "ellisonleao/gruvbox.nvim", priority = 1000 },
 	{ "LazyVim/LazyVim", opts = { colorscheme = "gruvbox" } },
-	-- {
-	-- 	-- https://www.lazyvim.org/plugins/lsp#%EF%B8%8F-austomizing-lsp-keymaps
-	-- 	-- This doesn't work correctly. I wanted to fix the goto Defition
-	-- 	-- so that it doesn't jump to a new tab if the file containing the def
-	-- 	-- is open there. Revisit!
-	-- 	"neovim/nvim-lspconfig",
-	-- 	opts = function()
-	-- 		-- local keys = require("lazyvim.plugins.lsp.keymaps").get()
-	-- 		-- keys[#keys + 1] = {
-	-- 		-- 	"gd",
-	-- 		-- 	function()
-	-- 		-- 		return vim.lsp.buf.definition({ reuse_win = false })
-	-- 		-- 	end,
-	-- 		-- 	desc = "Rob Goto Defition",
-	-- 		-- }
-	-- 	end,
-	-- },
 	{
 		"mrcjkb/rustaceanvim",
-		version = "^5", -- Recommended
-		lazy = false, -- This plugin is already lazy
+		version = "^5",
+		ft = { "rust" },
+		config = function()
+			vim.g.rustaceanvim = {
+				server = {
+					default_settings = {
+						["rust-analyzer"] = {
+							cargo = { allFeatures = true },
+							checkOnSave = { command = "clippy" },
+							procMacro = { enable = true },
+						},
+					},
+					on_attach = function(_, bufnr)
+						local opts = { buffer = bufnr }
+						vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+						vim.keymap.set("n", "<leader>re", function()
+							vim.cmd("RustLsp explainError")
+						end, opts)
+					end,
+				},
+			}
+		end,
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -84,26 +76,20 @@ return {
 			ensure_installed = {
 				"rust",
 				"ron",
+				"toml",
+				"yaml",
 			},
 		},
 	},
 	{
 		"Saecki/crates.nvim",
 		tag = "stable",
+		ft = { "toml" },
 		config = function()
-			require("crates").setup()
+			require("crates").setup({
+				lsp = { enabled = true, actions = true, completion = true, hover = true },
+			})
 		end,
-		-- opts = {
-		-- 	crates = {
-		-- 		enabled = true,
-		-- 	},
-		-- 	lsp = {
-		-- 		enabled = true,
-		-- 		actions = true,
-		-- 		completion = true,
-		-- 		hover = true,
-		-- 	},
-		-- },
 	},
 	{
 		"williamboman/mason.nvim",
@@ -115,12 +101,10 @@ return {
 				"codelldb",
 				"clangd",
 				"clang-format",
+				"prettier",
+				"taplo",
 			},
 		},
-	},
-	{
-		"echasnovski/mini.pairs",
-		enabled = false,
 	},
 	{
 		--Disable the popup gui for running ex commands.
