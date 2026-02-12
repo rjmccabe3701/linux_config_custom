@@ -37,3 +37,13 @@ end
 -- Rust diagnostics source preference (keep if you rely on LazyVim's knob; harmless otherwise).
 -- rustaceanvim will still use rust-analyzer for full LSP.
 vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
+
+-- Open the :messages in a buffer
+-- :MessagesBuffer
+vim.api.nvim_create_user_command("MessagesBuffer", function()
+	vim.cmd("new")
+	vim.cmd("put =execute('messages')")
+	vim.bo.buftype = "nofile"
+	vim.bo.bufhidden = "wipe"
+	vim.bo.swapfile = false
+end, {})

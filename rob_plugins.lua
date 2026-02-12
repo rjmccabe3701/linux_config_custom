@@ -1,9 +1,4 @@
 return {
-	-----------------------------------------------------------------------------
-	-- LazyVim extras (Rust)
-	-----------------------------------------------------------------------------
-	-- This pulls in LazyVim's Rust integration (dap/codelldb wiring, etc.).
-	{ import = "lazyvim.plugins.extras.lang.rust" },
 
 	-----------------------------------------------------------------------------
 	-- Theme
@@ -100,7 +95,7 @@ return {
 	-----------------------------------------------------------------------------
 	-- LazyVim already includes mason + mason-lspconfig; you only need to extend config.
 	{
-		"williamboman/mason.nvim",
+		"mason-org/mason.nvim",
 		opts = function(_, opts)
 			opts.ensure_installed = opts.ensure_installed or {}
 			vim.list_extend(opts.ensure_installed, {
@@ -128,51 +123,60 @@ return {
 	-----------------------------------------------------------------------------
 	-- Rust: rustaceanvim (nightly-friendly, great RA integration)
 	-----------------------------------------------------------------------------
-	{
-		"mrcjkb/rustaceanvim",
-		version = "^4",
-		ft = { "rust" },
-		config = function()
-			vim.g.rustaceanvim = {
-				tools = {
-					hover_actions = { auto_focus = true },
-				},
-				server = {
-					-- rustaceanvim will start rust-analyzer; prefer rustup rust-analyzer on nightly.
-					-- Make sure you have: rustup component add rust-analyzer rustfmt clippy
-					settings = {
-						["rust-analyzer"] = {
-							cargo = { allFeatures = true },
-							checkOnSave = {
-								command = "clippy",
-							},
-						},
-					},
-					on_attach = function(_, bufnr)
-						local map = function(lhs, rhs, desc)
-							vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })
-						end
-
-						map("<leader>rr", function()
-							vim.cmd("RustLsp run")
-						end, "Rust: Run")
-
-						map("<leader>rd", function()
-							vim.cmd("RustLsp debug")
-						end, "Rust: Debug")
-
-						-- Rustfmt on demand (useful even if you also format on save)
-						map("<leader>rf", function()
-							vim.cmd("RustLsp format")
-						end, "Rust: Format")
-					end,
-				},
-			}
-		end,
-	},
+	-- This is not compatible with lazyvim. To get this, install lang.rust
+	-- via :LazyExtras
+	-- {
+	-- 	"mrcjkb/rustaceanvim",
+	-- 	version = "^4",
+	-- 	ft = { "rust" },
+	-- 	config = function()
+	-- 		vim.g.rustaceanvim = {
+	-- 			tools = {
+	-- 				hover_actions = { auto_focus = true },
+	-- 			},
+	-- 			server = {
+	-- 				-- rustaceanvim will start rust-analyzer; prefer rustup rust-analyzer on nightly.
+	-- 				-- Make sure you have: rustup component add rust-analyzer rustfmt clippy
+	-- 				settings = {
+	-- 					["rust-analyzer"] = {
+	-- 						cargo = { allFeatures = true },
+	-- 						checkOnSave = {
+	-- 							command = "clippy",
+	-- 						},
+	-- 					},
+	-- 				},
+	-- 				on_attach = function(_, bufnr)
+	-- 					local map = function(lhs, rhs, desc)
+	-- 						vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })
+	-- 					end
+	--
+	-- 					map("<leader>rr", function()
+	-- 						vim.cmd("RustLsp run")
+	-- 					end, "Rust: Run")
+	--
+	-- 					map("<leader>rd", function()
+	-- 						vim.cmd("RustLsp debug")
+	-- 					end, "Rust: Debug")
+	--
+	-- 					-- Rustfmt on demand (useful even if you also format on save)
+	-- 					map("<leader>rf", function()
+	-- 						vim.cmd("RustLsp format")
+	-- 					end, "Rust: Format")
+	-- 				end,
+	-- 			},
+	-- 		}
+	-- 	end,
+	-- },
 
 	-----------------------------------------------------------------------------
 	-- Disable Noice (per your stability preference)
 	-----------------------------------------------------------------------------
 	{ "folke/noice.nvim", enabled = false },
+
+	{
+		"folke/snacks.nvim",
+		opts = {
+			notifier = { enabled = false },
+		},
+	},
 }
