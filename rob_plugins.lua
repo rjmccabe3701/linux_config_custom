@@ -1,25 +1,59 @@
 return {
+	-----------------------------------------------------------------------------
+	-- LazyVim extras (Rust)
+	-----------------------------------------------------------------------------
+	-- This pulls in LazyVim's Rust integration (dap/codelldb wiring, etc.).
+	{ import = "lazyvim.plugins.extras.lang.rust" },
+
+	-----------------------------------------------------------------------------
+	-- Theme
+	-----------------------------------------------------------------------------
+	{ "ellisonleao/gruvbox.nvim", priority = 1000 },
+	{ "LazyVim/LazyVim", opts = { colorscheme = "gruvbox" } },
+
+	-----------------------------------------------------------------------------
+	-- LSP
+	-----------------------------------------------------------------------------
 	{
 		"neovim/nvim-lspconfig",
 		opts = {
+			-- You’re on nightly; inlay hints are solid now, but if you dislike them, keep this.
 			inlay_hints = { enabled = false },
+
 			servers = {
 				pylsp = {},
 				gopls = {},
 				clangd = {},
+				-- NOTE: rust-analyzer is handled by rustaceanvim / LazyVim rust extra.
+				lua_ls = {
+					settings = {
+						Lua = {
+							diagnostics = {
+								globals = { "vim" },
+							},
+							workspace = {
+								checkThirdParty = false,
+							},
+						},
+					},
+				},
 			},
 		},
 	},
-	{
-		"nvim-mini/mini.pairs",
-		enabled = false,
-	},
+
+	-----------------------------------------------------------------------------
+	-- Editing UX
+	-----------------------------------------------------------------------------
+	{ "nvim-mini/mini.pairs", enabled = false },
+
 	{
 		"folke/flash.nvim",
 		keys = {
-			-- disable the default flash keymap
+			-- Disable defaults:
 			{ "s", mode = { "n", "x", "o" }, false },
 			{ "S", mode = { "n", "x", "o" }, false },
+
+			-- Your explicit mapping:
 			{
 				"<leader>S",
 				mode = { "n", "x", "o" },
@@ -30,87 +64,115 @@ return {
 			},
 		},
 	},
+
 	{
 		"nvim-telescope/telescope.nvim",
 		keys = {
 			{
 				"<C-\\>",
-				mode = { "n" },
+				mode = "n",
 				function()
 					require("telescope.builtin").grep_string()
 				end,
-				desc = "Grep String Under Cursor",
+				desc = "Grep string under cursor",
 			},
 		},
 	},
-	{ "ellisonleao/gruvbox.nvim", priority = 1000 },
-	{ "LazyVim/LazyVim", opts = { colorscheme = "gruvbox" } },
-	-- {
-	-- 	"mrcjkb/rustaceanvim",
-	-- 	version = "^5",
-	-- 	ft = { "rust" },
-	-- 	config = function()
-	-- 		vim.g.rustaceanvim = {
-	-- 			server = {
-	-- 				default_settings = {
-	-- 					["rust-analyzer"] = {
-	-- 						cargo = { allFeatures = true },
-	-- 						checkOnSave = { command = "clippy" },
-	-- 						procMacro = { enable = true },
-	-- 					},
-	-- 				},
-	-- 				on_attach = function(_, bufnr)
-	-- 					local opts = { buffer = bufnr }
-	-- 					vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-	-- 					vim.keymap.set("n", "<leader>re", function()
-	-- 						vim.cmd("RustLsp explainError")
-	-- 					end, opts)
-	-- 				end,
-	-- 			},
-	-- 		}
-	-- 	end,
-	-- },
+
+	-----------------------------------------------------------------------------
+	-- Treesitter (languages only)
+	-----------------------------------------------------------------------------
 	{
 		"nvim-treesitter/nvim-treesitter",
-		opts = {
-			ensure_installed = {
+		opts = function(_, opts)
+			opts.ensure_installed = opts.ensure_installed or {}
+			vim.list_extend(opts.ensure_installed, {
 				"rust",
 				"ron",
 				"toml",
 				"yaml",
-			},
-		},
+			})
+		end,
 	},
-	-- {
-	-- 	"Saecki/crates.nvim",
-	-- 	tag = "stable",
-	-- 	ft = { "toml" },
-	-- 	config = function()
-	-- 		require("crates").setup({
-	-- 			lsp = { enabled = true, actions = true, completion = true, hover = true },
-	-- 		})
-	-- 	end,
-	-- },
+
+	-----------------------------------------------------------------------------
+	-- Mason (formatters/linters/debuggers/tools)
+	-----------------------------------------------------------------------------
+	-- LazyVim already includes mason + mason-lspconfig; you only need to extend config.
 	{
-		"mason.org/mason.nvim",
-		opts = {
-			ensure_installed = {
+		"williamboman/mason.nvim",
+		opts = function(_, opts)
+			opts.ensure_installed = opts.ensure_installed or {}
+			vim.list_extend(opts.ensure_installed, {
+				-- Lua
 				"stylua",
+
+				-- Shell
 				"shellcheck",
 				"shfmt",
-				"codelldb",
+
+				-- Web / misc
+				"prettier",
+
+				-- C/C++
 				"clangd",
 				"clang-format",
-				"prettier",
+
+				-- Rust support tools
+				"codelldb",
 				"taplo",
-			},
-		},
+			})
+		end,
 	},
+
+	-----------------------------------------------------------------------------
+	-- Rust: rustaceanvim (nightly-friendly, great RA integration)
+	-----------------------------------------------------------------------------
 	{
-		--Disable the popup gui for running ex commands.
-		--I've noticed that, sometimes, the editor fails to close
-		-- with noice enabled
-		"folke/noice.nvim",
-		enabled = false,
+		"mrcjkb/rustaceanvim",
+		version = "^4",
+		ft = { "rust" },
+		config = function()
+			vim.g.rustaceanvim = {
+				tools = {
+					hover_actions = { auto_focus = true },
+				},
+				server = {
+					-- rustaceanvim will start rust-analyzer; prefer rustup rust-analyzer on nightly.
+					-- Make sure you have: rustup component add rust-analyzer rustfmt clippy
+					settings = {
+						["rust-analyzer"] = {
+							cargo = { allFeatures = true },
+							checkOnSave = {
+								command = "clippy",
+							},
+						},
+					},
+					on_attach = function(_, bufnr)
+						local map = function(lhs, rhs, desc)
+							vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })
+						end
+
+						map("<leader>rr", function()
+							vim.cmd("RustLsp run")
+						end, "Rust: Run")
+
+						map("<leader>rd", function()
+							vim.cmd("RustLsp debug")
+						end, "Rust: Debug")
+
+						-- Rustfmt on demand (useful even if you also format on save)
+						map("<leader>rf", function()
+							vim.cmd("RustLsp format")
+						end, "Rust: Format")
+					end,
+				},
+			}
+		end,
 	},
+
+	-----------------------------------------------------------------------------
+	-- Disable Noice (per your stability preference)
+	-----------------------------------------------------------------------------
+	{ "folke/noice.nvim", enabled = false },
 }
