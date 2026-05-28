@@ -186,12 +186,34 @@ return {
 			{ "<leader>e", false },
 			{ "<leader>E", false },
 
-			-- 2. Bind <leader>e to open netrw instead
-			-- Bind <leader>e to toggle netrw as a left sidebar
+			-- 2. Lowercase 'e' (Smart Toggle for Current File Directory)
 			{
 				"<leader>e",
+				function()
+					-- Check if a netrw sidebar buffer is already open anywhere
+					local netrw_open = false
+					for _, win in ipairs(vim.api.nvim_list_wins()) do
+						local buf = vim.api.nvim_win_get_buf(win)
+						if vim.bo[buf].filetype == "netrw" then
+							netrw_open = true
+							break
+						end
+					end
+
+					if netrw_open then
+						vim.cmd("Lexplore") -- If open, calling Lexplore with no arguments will close it cleanly
+					else
+						vim.cmd("Lexplore %:p:h") -- If closed, open the active file's directory
+					end
+				end,
+				desc = "Toggle netrw (Current File Dir)",
+			},
+
+			-- 3. Uppercase 'E' (Native Toggle for Workspace Root)
+			{
+				"<leader>E",
 				"<cmd>Lexplore<cr>",
-				desc = "Toggle netrw Sidebar",
+				desc = "Toggle netrw (Root CWD)",
 			},
 		},
 	},
