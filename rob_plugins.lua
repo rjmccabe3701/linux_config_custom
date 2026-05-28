@@ -177,6 +177,22 @@ return {
 		"folke/snacks.nvim",
 		opts = {
 			notifier = { enabled = false },
+			explorer = { enabled = false },
+		},
+		keys = {
+			-- 1. Unbind the default Snacks explorer keymaps
+			{ "<leader>e", false },
+			{ "<leader>E", false },
+			{ "<leader>e", false },
+			{ "<leader>E", false },
+
+			-- 2. Bind <leader>e to open netrw instead
+			-- Bind <leader>e to toggle netrw as a left sidebar
+			{
+				"<leader>e",
+				"<cmd>Lexplore<cr>",
+				desc = "Toggle netrw Sidebar",
+			},
 		},
 	},
 }
