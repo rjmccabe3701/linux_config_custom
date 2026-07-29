@@ -180,39 +180,55 @@ return {
 			explorer = { enabled = false },
 		},
 		keys = {
-			-- 1. Unbind the default Snacks explorer keymaps
-			{ "<leader>e", false },
-			{ "<leader>E", false },
+			-- 1. Unbind default Snacks explorer keymaps
 			{ "<leader>e", false },
 			{ "<leader>E", false },
 
-			-- 2. Lowercase 'e' (Smart Toggle for Current File Directory)
+			-- 2. Lowercase 'e' (Open left-split for Current File Directory & toggle)
 			{
 				"<leader>e",
 				function()
-					-- Check if a netrw sidebar buffer is already open anywhere
-					local netrw_open = false
+					local netrw_win = nil
 					for _, win in ipairs(vim.api.nvim_list_wins()) do
 						local buf = vim.api.nvim_win_get_buf(win)
 						if vim.bo[buf].filetype == "netrw" then
-							netrw_open = true
+							netrw_win = win
 							break
 						end
 					end
 
-					if netrw_open then
-						vim.cmd("Lexplore") -- If open, calling Lexplore with no arguments will close it cleanly
+					if netrw_win then
+						-- Close netrw window if already open
+						vim.api.nvim_win_close(netrw_win, true)
 					else
-						vim.cmd("Lexplore %:p:h") -- If closed, open the active file's directory
+						-- Open vertical split on the far left, then launch Explore
+						vim.cmd("topleft vsplit")
+						vim.cmd("Explore %:p:h")
 					end
 				end,
 				desc = "Toggle netrw (Current File Dir)",
 			},
 
-			-- 3. Uppercase 'E' (Native Toggle for Workspace Root)
+			-- 3. Uppercase 'E' (Open left-split for Root CWD & toggle)
 			{
 				"<leader>E",
-				"<cmd>Lexplore<cr>",
+				function()
+					local netrw_win = nil
+					for _, win in ipairs(vim.api.nvim_list_wins()) do
+						local buf = vim.api.nvim_win_get_buf(win)
+						if vim.bo[buf].filetype == "netrw" then
+							netrw_win = win
+							break
+						end
+					end
+
+					if netrw_win then
+						vim.api.nvim_win_close(netrw_win, true)
+					else
+						vim.cmd("topleft vsplit")
+						vim.cmd("Explore")
+					end
+				end,
 				desc = "Toggle netrw (Root CWD)",
 			},
 		},
