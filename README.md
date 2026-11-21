@@ -27,7 +27,7 @@ I now support multiple git contexts
 To generate an SSH key do this
 
 ```bash
-ssh-keygen -t ed25519 -C "rob.mccabe@optm.com"
+ssh-keygen -t ed25519 -C "robert.mccabe@collins.com"
 ```
 
 Then add to Github (`Settings/SSH and GPG keys`)
