@@ -54,4 +54,6 @@ if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
 		alias nvim='echo "No nesting!"'
 	fi
 fi
-export PATH="$PATH:$(go env GOPATH)/bin"
+# Do not start Go on every shell launch; it may not be installed.
+typeset -U path
+[[ -d "${GOPATH:-$HOME/go}/bin" ]] && path+=("${GOPATH:-$HOME/go}/bin")
