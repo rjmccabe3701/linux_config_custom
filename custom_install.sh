@@ -11,7 +11,8 @@ if [ ! -e "$config_dir" ] && [ ! -L "$config_dir" ]; then
         mkdir -p "$(dirname "$config_dir")"
         git clone --depth=1 https://github.com/LazyVim/starter "$config_dir"
     fi
-elif [ ! -f "$config_dir/lua/config/lazy.lua" ]; then
+elif [ ! -f "$config_dir/lua/config/lazy.lua" ] &&
+    ! { [ -f "$config_dir/init.lua" ] && [ -f "$config_dir/lazyvim.json" ]; }; then
     echo "Existing editor config is not a recognizable LazyVim setup: $config_dir" >&2
     exit 1
 fi

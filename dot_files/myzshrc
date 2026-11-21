@@ -1,58 +1,56 @@
 alias vm=mv
 alias sl=ls
 
-alias xsh='DISPLAY=localhost:0.0 ssh -YC -c aes128-gcm@openssh.com'
+alias xsh='ssh -YC -c aes128-gcm@openssh.com'
 alias k=kubectl
-export PATH="${HOME}/nvim-macos-x86_64/bin:${PATH}"
-if [ -d ${HOME}/.cargo ]; then
-	source $HOME/.cargo/env
-fi
+typeset -U path
+[[ -x "$HOME/nvim-macos-x86_64/bin/nvim" ]] && path=("$HOME/nvim-macos-x86_64/bin" "${path[@]}")
+[[ -r "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 if whence dircolors >/dev/null; then
-	[ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || eval $(dircolors -b)
+	[ -e ~/.dircolors ] && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
 command -v nvim >/dev/null 2>&1 && alias vim='nvim'
 alias vi=vim
 export EDITOR=nvim
 
-#Nifty remote tmux tools
-## ATTACH TMUX SESSION
+# Remote tmux helpers preserve the current DISPLAY for X11 forwarding.
+# Quote session names for the remote shell, not just the local argument list.
 sta() {
-	DISPLAY=localhost:0.0 ssh -Y $1 -t tmux attach -t $2
+    (( $# == 2 )) || { print -u2 'Usage: sta HOST SESSION'; return 2; }
+    ssh -Y -t -- "$1" tmux attach -t "${(q)2}"
 }
 ssta() {
-	DISPLAY=localhost:0.0 ssh -Y $1 -t ssh -Y $2 -t tmux attach -t $3
+    (( $# == 3 )) || { print -u2 'Usage: ssta JUMP_HOST HOST SESSION'; return 2; }
+    local remote_cmd="tmux attach -t ${(q)3}"
+    ssh -Y -t -- "$1" ssh -Y -t -- "${(q)2}" "${(q)remote_cmd}"
 }
-
-##
 stad() {
-	DISPLAY=localhost:0.0 ssh -Y $1 -t tmux attach -d -t $2
+    (( $# == 2 )) || { print -u2 'Usage: stad HOST SESSION'; return 2; }
+    ssh -Y -t -- "$1" tmux attach -d -t "${(q)2}"
 }
-
-## NEW TMUX SESSION (attach)
 sts() {
-	DISPLAY=localhost:0.0 ssh -Y $1 -t tmux new-session -s $2
+    (( $# == 2 )) || { print -u2 'Usage: sts HOST SESSION'; return 2; }
+    ssh -Y -t -- "$1" tmux new-session -s "${(q)2}"
 }
 ssts() {
-	DISPLAY=localhost:0.0 ssh -Y $1 -t ssh -Y $2 -t tmux new-session -s $3
+    (( $# == 3 )) || { print -u2 'Usage: ssts JUMP_HOST HOST SESSION'; return 2; }
+    local remote_cmd="tmux new-session -s ${(q)3}"
+    ssh -Y -t -- "$1" ssh -Y -t -- "${(q)2}" "${(q)remote_cmd}"
 }
-
-## LIST_TMUX SESSIONS
 stl() {
-	DISPLAY=localhost:0.0 ssh -Y $1 -t tmux list-sessions 2 &>/dev/null
+    (( $# == 1 )) || { print -u2 'Usage: stl HOST'; return 2; }
+    ssh -Y -- "$1" tmux list-sessions
 }
 sstl() {
-	DISPLAY=localhost:0.0 ssh -Y $1 -t ssh -Y $2 -t tmux list-sessions 2 &>/dev/null
+    (( $# == 2 )) || { print -u2 'Usage: sstl JUMP_HOST HOST'; return 2; }
+    ssh -Y -- "$1" ssh -Y -- "${(q)2}" tmux list-sessions
 }
 
-#Prevent Neovim nesting
-if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-	if [ -x "$(command -v nvr)" ]; then
-		alias nvim=nvr
-	else
-		alias nvim='echo "No nesting!"'
-	fi
+# Reuse a parent Neovim when nvr is available; otherwise keep normal nvim working.
+if [[ -n "${NVIM:-}" ]] && (( $+commands[nvr] )); then
+    alias nvim=nvr
 fi
 # Do not start Go on every shell launch; it may not be installed.
 typeset -U path

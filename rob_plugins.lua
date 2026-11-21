@@ -50,6 +50,18 @@ return {
   { "nvim-treesitter/nvim-treesitter", opts = { ensure_installed = { "bash", "c", "cpp", "python", "lua", "toml", "yaml" } } },
   { "mason-org/mason.nvim", opts = { ensure_installed = { "shellcheck", "shfmt", "clang-format" } } },
   {
+    "mfussenegger/nvim-lint",
+    opts = {
+      -- Bash diagnostics without the Node-based Bash language server.
+      linters_by_ft = { sh = { "shellcheck" }, bash = { "shellcheck" } },
+      linters = {
+        shellcheck = {
+          condition = function() return vim.fn.executable("shellcheck") == 1 end,
+        },
+      },
+    },
+  },
+  {
     "stevearc/conform.nvim",
     opts = { formatters_by_ft = { c = { "clang_format" }, cpp = { "clang_format" }, sh = { "shfmt" }, bash = { "shfmt" } } },
   },

@@ -1,3 +1,7 @@
+# Default identity; directory-specific identities below take precedence.
+[user]
+   name = McCabe, Robert J
+   email = robert.mccabe@collins.com
 [includeIf "gitdir:~/repos/personal/"]
   path = .gitconfig-personal
 [includeIf "gitdir:~/repos/work/"]
@@ -12,6 +16,3 @@
    helper = store --file ~/.git/credentials
 [diff "zip"]
    textconv = unzip -c -a
-[user]
-   name = McCabe, Robert J
-   email = robert.mccabe@collins.com

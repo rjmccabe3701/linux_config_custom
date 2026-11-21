@@ -16,11 +16,11 @@ linux_config/install.sh linux_config_custom
 I now support multiple git contexts
 
 1. Repos under the `~/repos/personal` directory use the
-   [.gitconfig-persional](dot_files/gitconfig-personal) gitconfig. These are
+   [.gitconfig-personal](dot_files/gitconfig-personal) gitconfig. These are
    mapped to my personal github.
 
 2. Repos under the `~/repos/work` directory use the
-   [.gitconfig-persional](dot_files/gitconfig-work) gitconfig. These are mapped
+   [.gitconfig-work](dot_files/gitconfig-work) gitconfig. These are mapped
    to my work github. _NOTE: my employer enforces SSO, so I needed to "Configure
    SSO" for the SSH I add to the github UI._
 
@@ -34,42 +34,56 @@ Then add to Github (`Settings/SSH and GPG keys`)
 
 ## LazyVim configuration
 
-Use a supported stable Neovim (currently LazyVim requires 0.11.2+) with Git, a C
-compiler and tree-sitter-cli. On an Intel Mac, use compatible packages for your
-macOS version; the Linux AppImage is not a macOS installation method.
+This configuration works without Node.js/npm. Use a compatible Neovim release
+binary for your Mac (LazyVim requires Neovim 0.11.2+); Homebrew Neovim is not
+required. The shell recognizes `~/nvim-macos-x86_64/bin` when it exists.
+Keep the working `lazy-lock.json` and update plugins deliberately; the installer
+does not upgrade Neovim or Homebrew packages.
 
-`rob_plugins.lua` enables LazyVim's clangd, Python and Telescope extras. It uses
-Pyright plus Ruff for Python, bash-language-server plus ShellCheck for shell
-analysis, and shfmt/clang-format for formatting. Mason manages editor tools;
-Node is needed by the JavaScript-based language servers. C++ projects should
-export `compile_commands.json`; Python projects should have their own `.venv`.
+`rob_lazy.lua` loads LazyVim, its clangd/Python/Telescope extras, then your
+`rob_plugins.lua` overrides. Keep this order when copying the configuration.
 
-Gruvbox, Telescope search, netrw, Flash mappings, disabled inlay hints, disabled
-pair insertion and disabled Noice are preserved. Neovim chooses the clipboard
-provider automatically (pbcopy/pbpaste on macOS). On WSL, configure an available
-provider deliberately; xclip is no longer forced on every operating system.
+- **C/C++:** clangd navigation and completion, with clang-format formatting.
+  Export `compile_commands.json` from your build, for example with CMake's
+  `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` option.
+- **Python:** Ruff diagnostics and code actions; Pyright, basedpyright and pylsp
+  are disabled. Python type checking and language-server completion are absent.
+  Use a separate `.venv` for each project.
+- **Bash:** ShellCheck diagnostics when available, shfmt formatting, and syntax
+  highlighting. The Node-dependent bash-language-server is disabled.
 
-Go/Rust servers, parsers and unrelated tools are no longer installed by this
-custom file. Existing installations and `lazyvim.json` selections are preserved.
-Enable the Go/Rust extras through `:LazyExtras` if needed. Review existing extras
-for overlapping providers; do not enable a second Python server alongside Pyright.
+Mason manages native editor tools such as clangd, Ruff, ShellCheck, shfmt,
+clang-format and StyLua. Their platform support still depends on the downloaded
+release; there is no requirement to build Node or replace working system tools.
+Telescope uses `rg` for text search; `fd` improves file finding but is optional.
+Tree-sitter parsers may require a C compiler; some grammars also require the
+standalone tree-sitter CLI. Node is not required by this personal configuration.
 
-The installer retains an existing LazyVim setup and backs up the two files it
-replaces. It does not delete the config, data or state directories. New setups
-start from LazyVim starter. Keep its `lazy-lock.json` after successful validation;
-this repository does not invent or update a plugin lock without a full sync.
+Gruvbox, Telescope, netrw, Flash mappings, disabled inlay hints, disabled pair
+insertion and disabled Noice are preserved. Clipboard support uses pbcopy/pbpaste
+on macOS. Go/Rust tooling is not added by this custom configuration. Existing
+`lazyvim.json` extras are preserved; adding extras can introduce new dependencies.
+
+The installer backs up and links three files: `lua/config/lazy.lua`,
+`lua/config/options.lua` and `lua/plugins/rob_plugins.lua`. It preserves other
+configuration, plugins and editor data. New configurations use LazyVim starter.
 
 ### Isolated editor trial
 
-Copy your existing LazyVim configuration to a separate configuration directory
-named `nvim-cleanup`, then copy `rob_options.lua` to its `lua/config/options.lua`
-and `rob_plugins.lua` to its `lua/plugins/rob_plugins.lua`. Start it with:
+Copy your existing configuration to `~/.config/nvim-cleanup`, then copy:
+
+- `rob_lazy.lua` to `lua/config/lazy.lua`
+- `rob_options.lua` to `lua/config/options.lua`
+- `rob_plugins.lua` to `lua/plugins/rob_plugins.lua`
+
+Replace copied symlinks before editing them so the trial cannot change the live
+configuration. Start the trial with:
 
 ```bash
 NVIM_APPNAME=nvim-cleanup nvim
 ```
 
-This separates Neovim's configuration, plugin data, state and cache from your
-normal `nvim` instance. Run `:checkhealth`, inspect `:LspInfo` in C++, Python and
-Bash files, test formatting and clipboard copying, and verify the netrw shortcuts.
-Do not run the installer against your normal home until the trial is satisfactory.
+This uses separate configuration, plugin data, state and cache, so its first
+startup may download plugins and tools. For ordinary use, simply restart Neovim
+after changing the linked files. Check `:LspInfo`, `:ConformInfo` and
+`:checkhealth` if a tool fails; do not install Node to resolve disabled servers.
