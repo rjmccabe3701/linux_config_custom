@@ -17,3 +17,4 @@ elif [ ! -f "$config_dir/lua/config/lazy.lua" ]; then
 fi
 link_file "$DIR/rob_plugins.lua" "$config_dir/lua/plugins/rob_plugins.lua"
 link_file "$DIR/rob_options.lua" "$config_dir/lua/config/options.lua"
+link_file "$DIR/rob_lazy.lua" "$config_dir/lua/config/lazy.lua"

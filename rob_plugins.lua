@@ -17,16 +17,19 @@ local function toggle_netrw(current_file)
 end
 
 return {
-  { import = "lazyvim.plugins.extras.lang.clangd" },
-  { import = "lazyvim.plugins.extras.lang.python" },
-  { import = "lazyvim.plugins.extras.editor.telescope" },
   { "ellisonleao/gruvbox.nvim", priority = 1000 },
   { "LazyVim/LazyVim", opts = { colorscheme = "gruvbox" } },
   {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = { enabled = false },
-      servers = { bashls = {}, pylsp = { enabled = false } },
+      servers = {
+        -- Keep this setup usable without Node.js/npm.
+        bashls = { enabled = false },
+        pyright = { enabled = false },
+        basedpyright = { enabled = false },
+        pylsp = { enabled = false },
+      },
     },
   },
   { "nvim-mini/mini.pairs", enabled = false },
